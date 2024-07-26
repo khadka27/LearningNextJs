@@ -1,37 +1,34 @@
-
-import mongoose from "mongoose";
+import { mongoose, Schema } from "mongoose"
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, "Name is required"],
-        unique: true,
+        required: [true, "Please provide a username"],
+        unique: true
     },
     email: {
         type: String,
-        required: [true, "Email is required"],
-        unique: true,
+        required: [true, "Please provide an email"],
+        unique: true
     },
     password: {
         type: String,
-        required: true,
+        required: [true, "Please provide a username"]
     },
     isVerified: {
         type: Boolean,
-        default: false,
+        default: false
     },
     isAdmin: {
         type: Boolean,
-        default: false,
+        default: false
     },
-
     forgotPasswordToken: String,
-    forgotPasswordExpire: Date,
+    forgotPasswordTokenExpiry: Date,
     verifyToken: String,
-    verifyExpire: Date,
+    verifyTokenExpiry: Date
+})
 
-});
+const User = mongoose.models.users || mongoose.model("users", userSchema) //data base sanga pailai connect xa vane tei line natra users vanni naya banaune
 
-const User = mongoose.Model.users || mongoose.model("users", userSchema);
-
-export default User;
+export default User

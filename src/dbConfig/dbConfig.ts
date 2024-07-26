@@ -1,17 +1,20 @@
 import mongoose from "mongoose";
+
 export async function connect() {
   try {
-    mongoose.connect(process.env.MONGODB_URI!);
-    const connection = await mongoose.connection;
+    mongoose.connect(process.env.MONGO_URI!); //! typescript maa kunai pani data aauxa nai vanera suerity dina lai
+    const connection = mongoose.connection;
+
     connection.on("connected", () => {
-      console.log("MongoDB connection successful");
+      console.log("Monogodb connected");
     });
+
     connection.on("error", (err) => {
-      console.log("MongoDB connection error: " + err);
-      process.exit();
+      console.log("Error on connecting MongoDb" + err);
+      process.exit;
     });
   } catch (error) {
-    console.error("error connecting to database");
-    console.error(error);
+    console.log("Something went wrong on DB");
+    console.log(error);
   }
 }
